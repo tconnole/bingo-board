@@ -23,5 +23,6 @@
         align-items: center;
         justify-content: 'center';
         position: relative;
+        font-size: x-small;
     }
 }
