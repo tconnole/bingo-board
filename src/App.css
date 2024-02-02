@@ -12,9 +12,9 @@
 }
 
 .App-Container {
-  width: 1080px;
-  max-width: 98%;
-  height: calc(100% - 3rem);
+  max-width: 1040px;
+  width: 100%;
+  height: 100%;
   overflow: auto;
 
   display: flex;
