@@ -81,20 +81,23 @@ function bingoCardReducer(state: BingoCardState, action: BingoCardAction) {
 
 function BingoCardReducer(props: BingoCardReducerProps) {
 
-    // const location = useLocation();
-    // const encoded = location.pathname.substring(1);
     let tempState = {
-            name: 'New Bingo Card',
-            freeSpace: true,
-            words: [],
-            currentPositions: undefined,
-            currentSelected: undefined
+        name: 'New Bingo Card',
+        freeSpace: true,
+        words: [],
+        currentPositions: undefined,
+        currentSelected: undefined
+}
+    const location = window.location.href
+    if (location.includes('?')) {
+        const encoded = location.replace(/.*[?]/g, '').replace('board=', '');
+        if (encoded && encoded.length > 0) {
+            const decoded = JSON.parse(atob(encoded));
+            console.log(decoded);
+            tempState = decoded;
+        }
     }
-    // if (encoded && encoded.length > 0) {
-    //     const decoded = JSON.parse(atob(encoded));
-    //     tempState = decoded;
-    // }
-
+   
     const [state, dispatch] = useReducer(
         bingoCardReducer,
         tempState
