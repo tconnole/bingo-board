@@ -36,7 +36,7 @@ function Card() {
     }
 
     return  (
-    <Box sx={{display: 'flex', flexDirection: 'column', gap: '1rem', width: '100%'}}>
+    <div className="Card-container">
         <div className="Card-row" style={{width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
             {selected[0].map((chip, index) => <div onClick={() => clickChip([0, index])} style={{width: '16%'}} key={`0-${index}`}><CardChip selected={chip} label={labels[0][index]}></CardChip></div>)}
         </div>
@@ -52,7 +52,7 @@ function Card() {
         <div className="Card-row" style={{width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
             {selected[4].map((chip, index) => <div onClick={() => clickChip([4, index])} style={{width: '16%'}} key={`4-${index}`}><CardChip selected={chip} label={labels[4][index]}></CardChip></div>)}
         </div>
-    </Box>
+    </div>
     );
 }
 

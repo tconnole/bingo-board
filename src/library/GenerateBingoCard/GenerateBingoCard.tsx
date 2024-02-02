@@ -19,7 +19,7 @@ function GenerateBingoCard() {
         }
     }
 
-    return <Button variant="contained" onClick={generateNewCard}>Generate New Card</Button>
+    return <Button variant="contained" onClick={generateNewCard}>New Card</Button>
 }
 
 export default GenerateBingoCard;

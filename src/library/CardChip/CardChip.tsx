@@ -1,4 +1,5 @@
 import { Box } from "@mui/material";
+import './CardChip.css';
 
 export interface CardChipProps {
     selected: boolean;
@@ -7,22 +8,26 @@ export interface CardChipProps {
 
 function CardChip(props: CardChipProps) {
     return (
-            <Box 
-                sx={{
-                    width: '100%',
-                    aspectRatio: '1',
+            <div 
+                className="CardChip-Chip"
+                style={{
                     color: !props.selected ? 'white' : 'black',
                     backgroundColor: props.selected ? '#6aaa64' : '',
-                    borderRadius: '0.25rem',
-                    border: '0.25rem solid #3a3a3c',
+                }}>
+                    <Box 
+                sx={{
+                    color: !props.selected ? 'white' : 'black',
                     overflow: 'hidden',
                     overflowWrap: 'break-all',
                     display: 'flex',
                     alignItems: 'center',
-                    justifyContent: 'center'
+                    justifyContent: 'center',
+                    position: 'absolute',
+                    left: 0, right: 0, top: 0, bottom: 0
                 }}>
-                    {props.label}
-            </Box>);
+                        {props.label}
+                    </Box>
+            </div>);
 }
 
 export default CardChip;
