@@ -1,24 +1,34 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Header from './library/Header/Header';
+import Card from './library/Card/Card';
+import GenerateBingoCard from './library/GenerateBingoCard/GenerateBingoCard';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import { Button, Snackbar } from '@mui/material';
+import { BingoCardContext } from './library/BingoCardReducer/BingoCardReducer';
 
 function App() {
+  const [chipOpen, setChipOpen] = useState(false);
+  const bingoCard = useContext(BingoCardContext);
+
+  const handleClick = () => {
+    setChipOpen(true);
+
+    if (bingoCard.state) {
+      const encoded = btoa(JSON.stringify(bingoCard.state));
+      navigator.clipboard.writeText(encoded);
+    }
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="App-Container">
+        <Header />
+        <Card />
+        <Button sx={{display: 'flex', flexDirection: 'row', gap: '1rem', alignItems: 'center'}} onClick={handleClick}>Share Link <ContentCopyIcon /></Button>
+        <Snackbar open={chipOpen} onClose={() => setChipOpen(false)} autoHideDuration={2000} message="Copied to clipboard" />
+      </div>
     </div>
   );
 }
