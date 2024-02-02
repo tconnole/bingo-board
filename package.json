@@ -1,6 +1,7 @@
 {
   "name": "bingo-board",
-  "homepage": "http://tconnole.github.io/bingo-board",
+  "CNAME": "bingo-board-2024.com",
+  "homepage": "https://tconnole.github.io/bingo-board",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
