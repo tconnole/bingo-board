@@ -12,6 +12,10 @@
     width: 100%;
 }
 
+.Card-Chip {
+    width: 16%;
+}
+
 @media only screen and (max-width: 650px) {
     .Card-row {
        gap: 0.25rem;
@@ -19,5 +23,9 @@
 
     .Card-container {
         gap: 0.25rem;
+    }
+
+    .Card-Chip {
+        width: 18%;
     }
 }
