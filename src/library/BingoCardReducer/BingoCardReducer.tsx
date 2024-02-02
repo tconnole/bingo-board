@@ -83,20 +83,21 @@ function BingoCardReducer(props: BingoCardReducerProps) {
 
     const location = useLocation();
     const encoded = location.pathname.substring(1);
-    const decoded = JSON.parse(atob(encoded));
-
-    const [state, dispatch] = useReducer(
-        bingoCardReducer,
-        encoded ? 
-        decoded
-        : 
-        {
+    let tempState = {
             name: 'New Bingo Card',
             freeSpace: true,
             words: [],
             currentPositions: undefined,
             currentSelected: undefined
-        }
+    }
+    if (encoded && encoded.length > 0) {
+        const decoded = JSON.parse(atob(encoded));
+        tempState = decoded;
+    }
+
+    const [state, dispatch] = useReducer(
+        bingoCardReducer,
+        tempState
     )
 
     return (<BingoCardContext.Provider value={{state: state, dispatch: dispatch}}>{props.children}</BingoCardContext.Provider>)
