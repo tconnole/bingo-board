@@ -9,24 +9,19 @@ export interface CardChipProps {
 function CardChip(props: CardChipProps) {
     return (
             <div 
-                className="CardChip-Chip"
+                className="CardChip-container"
                 style={{
-                    color: !props.selected ? 'white' : 'black',
-                    backgroundColor: props.selected ? '#6aaa64' : '',
+                    // color: !props.selected ? 'white' : 'black',
                 }}>
-                    <Box 
-                sx={{
-                    color: !props.selected ? 'white' : 'black',
-                    overflow: 'hidden',
-                    overflowWrap: 'break-all',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    position: 'absolute',
-                    left: 0, right: 0, top: 0, bottom: 0
-                }}>
-                        {props.label}
-                    </Box>
+                    <div 
+                        className={`CardChip-Chip ${props.selected ? 'CardChip-position-selected' : 'CardChip-position'}`}
+                        style={{
+                            color: !props.selected ? 'white' : 'black',
+                            backgroundColor: props.selected ? '#6aaa64' : '#121213',
+                        }}
+                    >
+                            {props.label}
+                    </div>
             </div>);
 }
 

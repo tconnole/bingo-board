@@ -93,7 +93,6 @@ function BingoCardReducer(props: BingoCardReducerProps) {
         const encoded = location.replace(/.*[?]/g, '').replace('board=', '');
         if (encoded && encoded.length > 0) {
             const decoded = JSON.parse(atob(encoded));
-            console.log(decoded);
             tempState = decoded;
         }
     }

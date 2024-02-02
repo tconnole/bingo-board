@@ -1,28 +1,62 @@
-.CardChip-Chip {
+.CardChip-container {
     width: 100%;
     aspect-ratio: 1;
     border-radius: 0.25rem;
-    border: 0.25rem solid #3a3a3c;
-    overflow: hidden;
-    overflow-wrap: break-all;
     display: flex;
     align-items: center;
     justify-content: 'center';
     position: relative;
+    background-color: #3a3a3c;
+}
+
+.CardChip-Chip {
+    overflow: hidden;
+    overflow-wrap: anywhere;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+     border: 0.25rem solid #3a3a3c;
+     border-radius: 0.25rem;
+     transition: all 0.2s linear;
+}
+
+.CardChip-position {
+    top: -3px;
+    bottom: 3px;
+    right: -3px;
+    left: 3px;
+}
+
+.CardChip-position-selected {
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
 }
 
 @media only screen and (max-width: 650px) {
-    .CardChip-Chip {
+    .CardChip-container {
         width: 100%;
         aspect-ratio: 1;
         border-radius: 0.1rem;
-        border: 0.1rem solid #3a3a3c;
-        overflow: hidden;
-        overflow-wrap: break-all;
         display: flex;
         align-items: center;
         justify-content: 'center';
         position: relative;
         font-size: x-small;
+    }
+
+    .CardChip-Chip {
+        border: 0.1rem solid #3a3a3c;
+        border-radius: 0.1rem;
+    }
+
+    .CardChip-position {
+        top: -1px;
+        bottom: 1px;
+        right: -1px;
+        left: 1px;
     }
 }
