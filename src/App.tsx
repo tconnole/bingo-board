@@ -17,7 +17,7 @@ function App() {
 
     if (bingoCard.state) {
       const encoded = btoa(JSON.stringify(bingoCard.state));
-      navigator.clipboard.writeText(encoded);
+      navigator.clipboard.writeText(`https://tconnole.github.io/bingo-board?board=${encoded}`);
     }
   }
 

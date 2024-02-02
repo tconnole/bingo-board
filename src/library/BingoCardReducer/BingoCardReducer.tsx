@@ -81,8 +81,8 @@ function bingoCardReducer(state: BingoCardState, action: BingoCardAction) {
 
 function BingoCardReducer(props: BingoCardReducerProps) {
 
-    const location = useLocation();
-    const encoded = location.pathname.substring(1);
+    // const location = useLocation();
+    // const encoded = location.pathname.substring(1);
     let tempState = {
             name: 'New Bingo Card',
             freeSpace: true,
@@ -90,10 +90,10 @@ function BingoCardReducer(props: BingoCardReducerProps) {
             currentPositions: undefined,
             currentSelected: undefined
     }
-    if (encoded && encoded.length > 0) {
-        const decoded = JSON.parse(atob(encoded));
-        tempState = decoded;
-    }
+    // if (encoded && encoded.length > 0) {
+    //     const decoded = JSON.parse(atob(encoded));
+    //     tempState = decoded;
+    // }
 
     const [state, dispatch] = useReducer(
         bingoCardReducer,

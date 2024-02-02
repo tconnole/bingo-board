@@ -11,11 +11,11 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
+    {/* <BrowserRouter> */}
     <BingoCardReducer>
       <App />
     </BingoCardReducer>
-    </BrowserRouter>
+    {/* </BrowserRouter> */}
   </React.StrictMode>
 );
 
