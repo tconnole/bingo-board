@@ -4,6 +4,7 @@ import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
 import { Box, Card, CardContent, CardHeader, Modal, Switch, TextField, Typography } from "@mui/material";
 import GenerateBingoCard from "../GenerateBingoCard/GenerateBingoCard";
+import Help from "./Help";
 
 function Header() {
     const bingoCard = useContext(BingoCardContext);
@@ -41,6 +42,7 @@ function Header() {
         <Typography variant="h4">{title}</Typography>
         <IconButton aria-label="edit" onClick={() => setOpen(true)}><EditIcon sx={{fontSize: '2rem', color: 'white'}} /></IconButton>
         <GenerateBingoCard />
+        <Help />
         <Modal open={open} onClose={handleClose}>
             <Card variant="outlined" sx={{position: 'absolute', width: '400px', left: 'calc(50% - 200px)', top: '30%', backgroundColor: '#ffffff'}}>
                 <CardHeader title='Edit Form'></CardHeader>

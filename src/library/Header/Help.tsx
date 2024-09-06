@@ -1,0 +1,43 @@
+import HelpIcon from '@mui/icons-material/Help';
+import { Box, Card, CardContent, CardHeader, IconButton, Modal, Typography } from '@mui/material';
+import { useState } from 'react';
+import { DrinkRule, DrinkRuleIcon } from '../CardChip/CardChipDrinkRule';
+
+function Help() {
+    const [open, setOpen] = useState<boolean>(false);
+    const handleClose = () => {
+        setOpen(false);
+    }
+
+    function HelpRow(props: {rule: DrinkRule, desc: string, odd?: boolean}) {
+        return (
+            <Box component='div' sx={{display: 'flex', flexDirection: 'row', flexWrap: 'nowrap', alignItems: 'center', justifyContent: 'space-between', width: '100%', backgroundColor: props.odd ? '#c9c9c9' : '', borderRadius: '0.5rem', padding: props.odd ? '0.25rem' : 0 }}>
+                <Typography sx={{fontSize: '3rem', textShadow: '1px 1px 2px black'}}>{DrinkRuleIcon(props.rule)}</Typography>
+                <Typography variant='h6' sx={{textAlign: 'center', flexGrow: 1}}>{props.desc}</Typography>
+            </Box>
+        )
+    }
+
+    return (
+        <div>
+            <IconButton onClick={() => setOpen(true)}><HelpIcon sx={{fontSize: '2rem', color: 'white'}} /></IconButton>
+            <Modal open={open} onClose={handleClose}>
+            <Card variant="outlined" sx={{position: 'absolute', width: '400px', left: 'calc(50% - 200px)', top: '30%', backgroundColor: '#ffffff'}}>
+                <CardHeader title='Drinking Rules'></CardHeader>
+                <CardContent sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                    <HelpRow rule={DrinkRule.Drink} desc='Take a Drink'/>
+                    <HelpRow odd={true} rule={DrinkRule.Drink2} desc='Take two Drinks'/>
+                    <HelpRow rule={DrinkRule.WaterShot} desc='Chug some water'/>
+                    <HelpRow odd={true} rule={DrinkRule.Buddy} desc='Choose a buddy to take a Drink with'/>
+                    <HelpRow rule={DrinkRule.Death} desc="Space is dead and can't be used for bingo" />
+                    <HelpRow odd={true} rule={DrinkRule.Gift} desc='Gift a Drink'/>
+                    <HelpRow rule={DrinkRule.Boys} desc='Boys Drink'/>
+                    <HelpRow odd={true} rule={DrinkRule.Girls} desc='Girls Drink'/>
+                </CardContent>
+            </Card>
+        </Modal>
+        </div>
+    )
+}
+
+export default Help;

@@ -1,5 +1,6 @@
 import React, { Dispatch, ReactElement, createContext, useContext, useReducer, useState } from "react"
 import { useLocation, useParams } from "react-router-dom";
+import { DrinkRule, RandomDrinkRule } from "../CardChip/CardChipDrinkRule";
 
 export interface BingoCardReducerProps {
     children: ReactElement;
@@ -11,6 +12,7 @@ export interface BingoCardState {
     words: string[];
     currentPositions: string[][] | undefined;
     currentSelected: boolean[][] | undefined;
+    currentDrinkRules: DrinkRule[][] | undefined;
 }
 
 export interface BingoCardAction {
@@ -19,6 +21,20 @@ export interface BingoCardAction {
 }
 
 export const BingoCardContext = createContext<{state?: BingoCardState, dispatch?: Dispatch<BingoCardAction>}>({});
+
+function generateDrinkRules() {
+    const tempDrinkRules: DrinkRule[][] = [];
+    for (let i=0; i < 5; i++) {
+        for (let ii=0; ii < 5; ii++) {
+            if (ii === 0) {
+                tempDrinkRules.push([RandomDrinkRule()]);
+            } else {
+                tempDrinkRules[i].push(RandomDrinkRule());
+            }
+        }
+    }
+    return tempDrinkRules;
+}
 
 function generateNewPositions(words: string[]) {
     const tempPositions: string[][] = [];
@@ -67,7 +83,8 @@ function bingoCardReducer(state: BingoCardState, action: BingoCardAction) {
             return {
                 ...state,
                 currentPositions: generateNewPositions(state.words),
-                currentSelected: undefined
+                currentSelected: undefined,
+                currentDrinkRules: generateDrinkRules()
             }
         case 'setWords':
             return {
@@ -86,7 +103,8 @@ function BingoCardReducer(props: BingoCardReducerProps) {
         freeSpace: true,
         words: [],
         currentPositions: undefined,
-        currentSelected: undefined
+        currentSelected: undefined,
+        currentDrinkRules: undefined
 }
     const location = window.location.href
     if (location.includes('?')) {
