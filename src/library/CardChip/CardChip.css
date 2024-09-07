@@ -6,7 +6,10 @@
     align-items: center;
     justify-content: 'center';
     position: relative;
-    background-color: #3a3a3c;
+    /* background-color: #3a3a3c; */
+    container-type: inline-size;
+    container-name: CardChip;
+    /* contain */
 }
 
 .CardChip-Chip {
@@ -20,49 +23,17 @@
      border: 0.25rem solid #3a3a3c;
      border-radius: 0.25rem;
      transition: all 0.2s linear;
+     margin: 0.5rem;
 }
 
 .CardChip-position {
-    top: -3px;
-    bottom: 3px;
-    right: -3px;
-    left: 3px;
-}
-
-.CardChip-position-selected {
     top: 0;
     bottom: 0;
     right: 0;
     left: 0;
 }
 
-@media only screen and (max-width: 650px) {
-    .CardChip-container {
-        width: 100%;
-        aspect-ratio: 1;
-        border-radius: 0.1rem;
-        display: flex;
-        align-items: center;
-        justify-content: 'center';
-        position: relative;
-        font-size: x-small;
-    }
-
-    .CardChip-Chip {
-        border: 0.1rem solid #3a3a3c;
-        border-radius: 0.1rem;
-        outline-width: 0.1rem !important;
-    }
-
-    .CardChip-position {
-        top: -1px;
-        bottom: 1px;
-        right: -1px;
-        left: 1px;
-    }
-}
-
-@media only screen and (max-width: 730px) {
+@container CardChip (max-width: 200px) {
     .DrinkRule-text {
         display: none
     }

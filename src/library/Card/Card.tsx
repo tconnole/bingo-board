@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { BingoCardContext } from "../BingoCardReducer/BingoCardReducer";
+import { BingoCardContext, GenerateDrinkRules, GenerateNewPositions, GenerateSelected } from "../BingoCardReducer/BingoCardReducer";
 import { useContext } from "react";
 import CardChip from "../CardChip/CardChip";
 import './Card.css';
@@ -8,33 +8,18 @@ import { DrinkRule, RandomDrinkRule } from "../CardChip/CardChipDrinkRule";
 function Card() {
     const bingoCard = useContext(BingoCardContext);
     const freeSpace = bingoCard.state?.freeSpace ?? false;
+    const drinkingRules = bingoCard.state?.drinkingGame ?? false;
+    const size = bingoCard.state?.size ?? 5;
+    const words = bingoCard.state?.words ?? [];
     const selected: boolean[][] = bingoCard.state?.currentSelected
         ?? 
-        [
-            [false, false, false, false, false],
-            [false, false, false, false, false],
-            [false, false, freeSpace, false, false],
-            [false, false, false, false, false],
-            [false, false, false, false, false]
-        ];
+        GenerateSelected(size, freeSpace);
     const labels: string[][] = bingoCard.state?.currentPositions
         ??
-        [
-            ['', '', '', '', ''],
-            ['', '', '', '', ''],
-            ['', '', freeSpace ? 'free space' : '', '', ''],
-            ['', '', '', '', ''],
-            ['', '', '', '', ''],
-        ];
+        GenerateNewPositions(words, size);
     const drinkRules: DrinkRule[][] = bingoCard.state?.currentDrinkRules
         ??
-        [
-            [DrinkRule.None, DrinkRule.None, DrinkRule.None, DrinkRule.None, DrinkRule.None],
-            [DrinkRule.None, DrinkRule.None, DrinkRule.None, DrinkRule.None, DrinkRule.None],
-            [DrinkRule.None, DrinkRule.None, DrinkRule.None, DrinkRule.None, DrinkRule.None],
-            [DrinkRule.None, DrinkRule.None, DrinkRule.None, DrinkRule.None, DrinkRule.None],
-            [DrinkRule.None, DrinkRule.None, DrinkRule.None, DrinkRule.None, DrinkRule.None]
-        ];
+        GenerateDrinkRules(size, drinkingRules );
 
     const clickChip = (pos: number[]) => {
         if (bingoCard.dispatch) {
@@ -47,7 +32,14 @@ function Card() {
 
     return  (
     <div className="Card-container">
-        <div className="Card-row" style={{width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+        {
+            selected.map((row, i) => (
+                <div className="Card-row" style={{width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                     {row.map((chip, index) => <div onClick={() => clickChip([i, index])} style={{flexGrow: 1}} key={`${i}-${index}`}><CardChip drinkRule={drinkRules[i][index]} selected={chip} label={labels[i][index]}></CardChip></div>)}
+                 </div>
+            ))
+        }
+        {/* <div className="Card-row" style={{width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
             {selected[0].map((chip, index) => <div onClick={() => clickChip([0, index])} className="Card-Chip" key={`0-${index}`}><CardChip drinkRule={drinkRules[0][index]} selected={chip} label={labels[0][index]}></CardChip></div>)}
         </div>
         <div className="Card-row" style={{width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
@@ -61,7 +53,7 @@ function Card() {
         </div>
         <div className="Card-row" style={{width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
             {selected[4].map((chip, index) => <div onClick={() => clickChip([4, index])} className="Card-Chip" key={`4-${index}`}><CardChip drinkRule={drinkRules[4][index]} selected={chip} label={labels[4][index]}></CardChip></div>)}
-        </div>
+        </div> */}
     </div>
     );
 }

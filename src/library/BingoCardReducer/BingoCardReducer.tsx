@@ -13,34 +13,36 @@ export interface BingoCardState {
     currentPositions: string[][] | undefined;
     currentSelected: boolean[][] | undefined;
     currentDrinkRules: DrinkRule[][] | undefined;
+    drinkingGame: boolean;
+    size: number;
 }
 
 export interface BingoCardAction {
-    type: 'updateTitle' | 'toggleFreeSpace' | 'toggleSelected' | 'generateNewCard' | 'setWords';
+    type: 'updateTitle' | 'toggleFreeSpace' | 'toggleSelected' | 'generateNewCard' | 'setWords' | 'setSize' | 'toggleDrinkingGame';
     payload?: any;
 }
 
 export const BingoCardContext = createContext<{state?: BingoCardState, dispatch?: Dispatch<BingoCardAction>}>({});
 
-function generateDrinkRules() {
+export function GenerateDrinkRules(size: number, drinkingGame: boolean) {
     const tempDrinkRules: DrinkRule[][] = [];
-    for (let i=0; i < 5; i++) {
-        for (let ii=0; ii < 5; ii++) {
+    for (let i=0; i < size; i++) {
+        for (let ii=0; ii < size; ii++) {
             if (ii === 0) {
-                tempDrinkRules.push([RandomDrinkRule()]);
+                tempDrinkRules.push([(drinkingGame ? RandomDrinkRule() : DrinkRule.None)]);
             } else {
-                tempDrinkRules[i].push(RandomDrinkRule());
+                tempDrinkRules[i].push(drinkingGame ? RandomDrinkRule() : DrinkRule.None);
             }
         }
     }
     return tempDrinkRules;
 }
 
-function generateNewPositions(words: string[]) {
+export function GenerateNewPositions(words: string[], size: number) {
     const tempPositions: string[][] = [];
     const selectedWords: string[] = [];
-    for (let i=0; i < 5; i++) {
-        for (let ii=0; ii < 5; ii++) { 
+    for (let i=0; i < size; i++) {
+        for (let ii=0; ii < size; ii++) { 
             let randomWord: string = '';
             let wordFound = false;
             while(!wordFound && selectedWords.length < words.length) {
@@ -60,6 +62,21 @@ function generateNewPositions(words: string[]) {
         }
     }
     return tempPositions;
+}
+
+export function GenerateSelected(size: number, freeSpace: boolean) {
+    const tempSelected: boolean[][] = [];
+    for (let i=0; i < size; i++) {
+        for (let ii=0; ii < size; ii++) { 
+            if (ii === 0) {
+                tempSelected.push([false]);
+            } else if (freeSpace && Math.floor(size / 2) === i && Math.floor(size / 2) === ii) {
+                tempSelected[i].push(true)
+            } else {
+                tempSelected[i].push(false);
+            }
+        }}
+        return tempSelected;
 }
 
 function bingoCardReducer(state: BingoCardState, action: BingoCardAction) {
@@ -82,14 +99,24 @@ function bingoCardReducer(state: BingoCardState, action: BingoCardAction) {
         case 'generateNewCard':
             return {
                 ...state,
-                currentPositions: generateNewPositions(state.words),
-                currentSelected: undefined,
-                currentDrinkRules: generateDrinkRules()
+                currentPositions: GenerateNewPositions(state.words, state.size),
+                currentSelected: GenerateSelected(state.size, state.freeSpace),
+                currentDrinkRules: GenerateDrinkRules(state.size, state.drinkingGame)
             }
         case 'setWords':
             return {
                 ...state,
                 words: action.payload,
+            }
+        case 'setSize':
+            return {
+                ...state,
+                size: action.payload
+            }
+        case 'toggleDrinkingGame':
+            return {
+                ...state,
+                drinkingGame: !state.drinkingGame
             }
     }
 
@@ -104,7 +131,9 @@ function BingoCardReducer(props: BingoCardReducerProps) {
         words: [],
         currentPositions: undefined,
         currentSelected: undefined,
-        currentDrinkRules: undefined
+        currentDrinkRules: undefined,
+        drinkingGame: false,
+        size: 5
 }
     const location = window.location.href
     if (location.includes('?')) {

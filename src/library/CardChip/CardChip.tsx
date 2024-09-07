@@ -27,7 +27,7 @@ function CardChip(props: CardChipProps) {
             <div 
                 className="CardChip-container" style={{position: 'relative', color: !props.selected ? 'white' : 'black',}}>
                     <div 
-                        className={`CardChip-Chip ${props.selected ? 'CardChip-position-selected' : 'CardChip-position'}`}
+                        className={`CardChip-Chip CardChip-position`}
                         style={{
                             color: !props.selected ? 'white' : 'black',
                             backgroundColor: props.selected ? backgroundColor() : '#121213',
