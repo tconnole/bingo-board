@@ -2,6 +2,8 @@ import HelpIcon from '@mui/icons-material/Help';
 import { Box, Card, CardContent, CardHeader, IconButton, Modal, Typography } from '@mui/material';
 import { useState } from 'react';
 import { DrinkRule, DrinkRuleIcon } from '../CardChip/CardChipDrinkRule';
+import CloseIcon from '@mui/icons-material/Close';
+import './Help.css';
 
 function Help() {
     const [open, setOpen] = useState<boolean>(false);
@@ -22,8 +24,11 @@ function Help() {
         <div>
             <IconButton onClick={() => setOpen(true)}><HelpIcon sx={{fontSize: '2rem', color: 'white'}} /></IconButton>
             <Modal open={open} onClose={handleClose}>
-            <Card variant="outlined" sx={{position: 'absolute', width: '400px', left: 'calc(50% - 200px)', top: '30%', backgroundColor: '#ffffff'}}>
-                <CardHeader title='Drinking Rules'></CardHeader>
+            <Card variant="outlined" className="HelpModal">
+                <CardHeader title='Drinking Rules' action={
+                    <IconButton onClick={handleClose}>
+                        <CloseIcon />
+                    </IconButton>} />
                 <CardContent sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                     <HelpRow rule={DrinkRule.Drink} desc='Take a Drink'/>
                     <HelpRow odd={true} rule={DrinkRule.Drink2} desc='Take two Drinks'/>
