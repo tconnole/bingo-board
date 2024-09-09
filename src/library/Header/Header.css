@@ -1,0 +1,43 @@
+.edit-form-container {
+    position: absolute;
+    width: 400px;
+    left: calc(50% - 200px);
+    top: 20%;
+}
+
+.edit-form-tab {
+    background: none;
+	color: inherit;
+	border: none;
+	padding: 0.5rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+    background-color: #575757;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+    transition: all 0.2s linear;
+}
+
+.edit-form {
+    color: 'black';
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+    padding: 1rem;
+    background-color: white;
+    border-radius: 0.5rem;
+    border-top-left-radius: 0;
+}
+
+@media only screen and (max-width: 650px) {
+    .edit-form-container {
+        width: unset;
+        top: 1rem;
+        bottom: 1rem;
+        left: 1rem;
+        right: 1rem;
+    }
+}

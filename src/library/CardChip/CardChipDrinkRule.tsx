@@ -9,7 +9,8 @@ export enum DrinkRule {
     Gift,
     None,
     Boys,
-    Girls
+    Girls,
+    Chug
 }
 
 export function DrinkRuleIcon(rule: DrinkRule) {
@@ -34,6 +35,8 @@ export function DrinkRuleIcon(rule: DrinkRule) {
             return '👦'
         case DrinkRule.Girls:
             return '👧'
+        case DrinkRule.Chug:
+            return '🫗'
         default:
             return (<></>);
         
@@ -43,54 +46,35 @@ export function DrinkRuleIcon(rule: DrinkRule) {
 export function DrinkRuleColor(rule: DrinkRule): string {
     switch(rule) {
         case DrinkRule.Drink:
-            return '#fc6603';
+            return '#ff8b33';
         case DrinkRule.Drink2:
-            return '#fc0317'
+            return '#ff4529'
         case DrinkRule.WaterShot:
-            return '#037bfc'
+            return '#5cb8ff'
         case DrinkRule.Buddy:
-            return '#8c03fc'
+            return '#8438ff'
         case DrinkRule.Death:
             return '#2e2e2e'
         case DrinkRule.Gift:
             return '#dedede'
         case DrinkRule.Boys:
-            return '#0011ff'
+            return '#3b4eff'
         case DrinkRule.Girls:
-            return '#ff00ee'
+            return '#ff6efd'
+        case DrinkRule.Chug:
+            return '#ff1900'
         default:
             return '#20fc03';
     }
 }
 
-export function RandomDrinkRule() {
-    const rules = [
-        DrinkRule.Buddy,
-
-        DrinkRule.Boys,
-
-        DrinkRule.Girls,
-
-        DrinkRule.Death,
-
-        DrinkRule.Drink,
-        DrinkRule.Drink,
-        DrinkRule.Drink,
-
-        DrinkRule.Drink2,
-
-        DrinkRule.Gift,
-
-        DrinkRule.WaterShot,
-        DrinkRule.WaterShot,
-        DrinkRule.WaterShot,
-
-        DrinkRule.None,
-        DrinkRule.None,
-        DrinkRule.None,
-        DrinkRule.None,
-        DrinkRule.None,
-    ];
+export function RandomDrinkRule(ratios: Map<DrinkRule, number>) {
+    let rules: DrinkRule[] = [];
+    ratios.forEach((count, rule) => {
+        for(let i = 0; i < count; i++) {
+            rules.push(rule);
+        }
+    })
 
     return rules[Math.floor(Math.random() * rules.length)];
 }
@@ -109,10 +93,12 @@ export function DrinkRuleText(rule: DrinkRule) {
             return 'Dead Spot'
         case DrinkRule.Gift:
             return 'Gift a Drink'
-            case DrinkRule.Boys:
-                return 'Boys Drink'
-            case DrinkRule.Girls:
-                return 'Girls Drink'
+        case DrinkRule.Boys:
+            return 'Boys Drink'
+        case DrinkRule.Girls:
+            return 'Girls Drink'
+        case DrinkRule.Chug:
+            return 'Finish Drink'
         default:
             return '';
     }

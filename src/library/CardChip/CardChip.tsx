@@ -17,8 +17,9 @@ function CardChip(props: CardChipProps) {
                 return '#212121'
             }
             else {
-                return '#40d138'
-            }
+                // return '#40d138' // green
+                return '#0d8c2f' // dark green
+             }
         }
         return '#121213'
     }
@@ -30,9 +31,9 @@ function CardChip(props: CardChipProps) {
                         className={`CardChip-Chip CardChip-position`}
                         style={{
                             color: !props.selected ? 'white' : 'black',
-                            backgroundColor: props.selected ? backgroundColor() : '#121213',
-                            outlineWidth: '0.25rem',
-                            outline: props.selected ? `solid ${DrinkRuleColor(rule)}` : ''
+                            backgroundColor: props.selected ? backgroundColor() : '#3a3a3c', //'#121213',
+                            // borderColor: props.selected ? `${DrinkRuleColor(rule)}` : '#3a3a3c'
+                            boxShadow: props.selected && rule !== DrinkRule.None ? `0 0 0.1rem 0.25rem ${DrinkRuleColor(rule)}` : 'none'
                         }}
                     >
                             {props.label}

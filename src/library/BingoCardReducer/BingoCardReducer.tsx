@@ -10,32 +10,50 @@ export interface BingoCardState {
     name: string;
     freeSpace: boolean;
     words: string[];
-    currentPositions: string[][] | undefined;
-    currentSelected: boolean[][] | undefined;
-    currentDrinkRules: DrinkRule[][] | undefined;
+    currentPositions: string[][];
+    currentSelected: boolean[][];
+    currentDrinkRules: DrinkRule[][];
+    currentDrinkRulesRatios: Map<DrinkRule, number>;
     drinkingGame: boolean;
     size: number;
 }
 
 export interface BingoCardAction {
-    type: 'updateTitle' | 'toggleFreeSpace' | 'toggleSelected' | 'generateNewCard' | 'setWords' | 'setSize' | 'toggleDrinkingGame';
+    type: 'updateTitle' | 'toggleFreeSpace' | 'toggleSelected' | 'generateNewCard' | 'setWords' | 'setSize' | 'toggleDrinkingGame' | 'setDrinkRulesRatios';
     payload?: any;
 }
 
 export const BingoCardContext = createContext<{state?: BingoCardState, dispatch?: Dispatch<BingoCardAction>}>({});
 
-export function GenerateDrinkRules(size: number, drinkingGame: boolean) {
+export function GenerateDrinkRules(size: number, drinkingGame: boolean, ratios: Map<DrinkRule, number>) {
     const tempDrinkRules: DrinkRule[][] = [];
     for (let i=0; i < size; i++) {
         for (let ii=0; ii < size; ii++) {
             if (ii === 0) {
-                tempDrinkRules.push([(drinkingGame ? RandomDrinkRule() : DrinkRule.None)]);
+                tempDrinkRules.push([(drinkingGame ? RandomDrinkRule(ratios) : DrinkRule.None)]);
             } else {
-                tempDrinkRules[i].push(drinkingGame ? RandomDrinkRule() : DrinkRule.None);
+                tempDrinkRules[i].push(drinkingGame ? RandomDrinkRule(ratios) : DrinkRule.None);
             }
         }
     }
     return tempDrinkRules;
+}
+
+export function GenerateDrinkRulesRatios() {
+    let ratioMap = new Map<DrinkRule, number>();
+
+    ratioMap.set(DrinkRule.Buddy, 1);
+    ratioMap.set(DrinkRule.Boys, 1);
+    ratioMap.set(DrinkRule.Girls, 1);
+    ratioMap.set(DrinkRule.Death, 1);
+    ratioMap.set(DrinkRule.Chug, 1);
+    ratioMap.set(DrinkRule.Drink, 3);
+    ratioMap.set(DrinkRule.Drink2, 1);
+    ratioMap.set(DrinkRule.Gift, 1);
+    ratioMap.set(DrinkRule.WaterShot, 3);
+    ratioMap.set(DrinkRule.None, 5);
+
+    return ratioMap;
 }
 
 export function GenerateNewPositions(words: string[], size: number) {
@@ -101,7 +119,7 @@ function bingoCardReducer(state: BingoCardState, action: BingoCardAction) {
                 ...state,
                 currentPositions: GenerateNewPositions(state.words, state.size),
                 currentSelected: GenerateSelected(state.size, state.freeSpace),
-                currentDrinkRules: GenerateDrinkRules(state.size, state.drinkingGame)
+                currentDrinkRules: GenerateDrinkRules(state.size, state.drinkingGame, state.currentDrinkRulesRatios),
             }
         case 'setWords':
             return {
@@ -118,6 +136,11 @@ function bingoCardReducer(state: BingoCardState, action: BingoCardAction) {
                 ...state,
                 drinkingGame: !state.drinkingGame
             }
+        case 'setDrinkRulesRatios':
+            return {
+                ...state,
+                currentDrinkRulesRatios: action.payload
+            }
     }
 
     return state;
@@ -129,9 +152,10 @@ function BingoCardReducer(props: BingoCardReducerProps) {
         name: 'New Bingo Card',
         freeSpace: true,
         words: [],
-        currentPositions: undefined,
-        currentSelected: undefined,
-        currentDrinkRules: undefined,
+        currentPositions: GenerateNewPositions([], 5),
+        currentSelected: GenerateSelected(5, true),
+        currentDrinkRules: GenerateDrinkRules(5, false, GenerateDrinkRulesRatios()),
+        currentDrinkRulesRatios: GenerateDrinkRulesRatios(),
         drinkingGame: false,
         size: 5
 }

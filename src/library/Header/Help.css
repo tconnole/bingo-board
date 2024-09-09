@@ -3,7 +3,7 @@
     width: 400px;
     left: calc(50% - 200px);
     top: 20%;
-    backgroundColor: #ffffff;
+    background-color: #ffffff;
 }
 
 @media only screen and (max-width: 650px) {

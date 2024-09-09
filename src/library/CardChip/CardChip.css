@@ -20,10 +20,11 @@
     align-items: center;
     justify-content: center;
     position: absolute;
-     border: 0.25rem solid #3a3a3c;
-     border-radius: 0.25rem;
-     transition: all 0.2s linear;
-     margin: 0.5rem;
+    background-color: #3a3a3c;
+    /* border: 0.5rem solid #3a3a3c; */
+    border-radius: 0.25rem;
+    transition: all 0.2s linear;
+    margin: 0.5rem;
 }
 
 .CardChip-position {
@@ -33,8 +34,12 @@
     left: 0;
 }
 
-@container CardChip (max-width: 200px) {
+@container CardChip (max-width: 132px) {
     .DrinkRule-text {
         display: none
+    }
+
+    .CardChip-Chip {
+        margin: 0.33rem;
     }
 }

@@ -5,9 +5,13 @@ import EditIcon from '@mui/icons-material/Edit';
 import { Box, Button, ButtonGroup, Card, CardContent, CardHeader, Modal, Switch, TextField, Typography } from "@mui/material";
 import GenerateBingoCard from "../GenerateBingoCard/GenerateBingoCard";
 import Help from "./Help";
+import './Help.css';
+import './Header.css';
+import DrinkingRulesRatiosForm from "./DrinkingRulesRatiosForm";
 
 function Header() {
     const bingoCard = useContext(BingoCardContext);
+    const [tab, setTab] = useState<'Settings' | 'Drinking'>('Settings');
 
     const [open, setOpen] = useState<boolean>(false);
     const title = bingoCard.state?.name ?? 'N/A';
@@ -15,6 +19,7 @@ function Header() {
     const drinkingGame = bingoCard.state?.drinkingGame ?? false;
     const size = bingoCard.state?.size ?? 5;
     const words = bingoCard.state?.words.join(',') ?? '';
+
 
     const handleClose = () => {
         setOpen(false);
@@ -58,25 +63,36 @@ function Header() {
         <GenerateBingoCard />
         <Help />
         <Modal open={open} onClose={handleClose}>
-            <Card variant="outlined" sx={{position: 'absolute', width: '400px', left: 'calc(50% - 200px)', top: '30%', backgroundColor: '#ffffff'}}>
-                <CardHeader title='Edit Form'></CardHeader>
-                <CardContent sx={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: '0.25rem'}}>
-                    <TextField style={{width: '100%'}} id="outline-title" label="Bingo Board Name" onChange={(event) => updateTitle(event.target.value)} value={title} />
-                    <Box sx={{display: 'flex', flexDirection: 'row', gap: '1rem', alignItems: 'center'}}>
-                        <Typography>Free Space</Typography>
-                        <Switch onChange={updateFreeSpace} checked={freeSpace} />
-                    </Box>
-                    <Box sx={{display: 'flex', flexDirection: 'row', gap: '1rem', alignItems: 'center'}}>
-                        <Typography>Drinking Game</Typography>
-                        <Switch onChange={updateDrinkingGame} checked={drinkingGame} />
-                    </Box>
-                    <ButtonGroup>
-                        <Button onClick={() => updateSize(3)} variant={size === 3 ? 'contained' : 'outlined'}>3x3</Button>
-                        <Button onClick={() => updateSize(5)} variant={size === 5 ? 'contained' : 'outlined'}>5x5</Button>
-                    </ButtonGroup>
-                    <TextField style={{width: '100%'}} multiline label='Words' rows={10} variant="outlined" onChange={(event) => updateWords(event.target.value)} value={words}></TextField>
-                </CardContent>
-            </Card>
+            <div className="edit-form-container">
+                <div>
+                    <button onClick={() => setTab('Settings')} onChange={() => setTab('Settings')} className="edit-form-tab" style={{backgroundColor: tab === 'Settings' ? 'white' : '', color: tab === 'Settings' ? 'black' : ''}}><Typography variant='h5'>Settings</Typography></button>
+                    <button onClick={() => setTab('Drinking')} onChange={() => setTab('Drinking')} className="edit-form-tab" style={{backgroundColor: tab === 'Drinking' ? 'white' : '', color: tab === 'Drinking' ? 'black' : ''}}><Typography variant='h5'>Drinking</Typography></button>
+                </div>
+                { tab === 'Settings' ?
+                (<div className="edit-form">
+                        <TextField style={{width: '100%'}} id="outline-title" label="Bingo Board Name" onChange={(event) => updateTitle(event.target.value)} value={title} />
+                        <Box sx={{display: 'flex', flexDirection: 'row', gap: '1rem', alignItems: 'center'}}>
+                            <Typography variant='h6' sx={{color: 'black'}}>Free Space</Typography>
+                            <Switch onChange={updateFreeSpace} checked={freeSpace} />
+                        </Box>
+                        <ButtonGroup>
+                            <Button onClick={() => updateSize(3)} variant={size === 3 ? 'contained' : 'outlined'}>3x3</Button>
+                            <Button onClick={() => updateSize(5)} variant={size === 5 ? 'contained' : 'outlined'}>5x5</Button>
+                        </ButtonGroup>
+                        <TextField style={{width: '100%'}} multiline label='Words' rows={10} variant="outlined" onChange={(event) => updateWords(event.target.value)} value={words}></TextField>
+                </div>) :
+                (<div className="edit-form">
+                        <Box sx={{display: 'flex', flexDirection: 'row', gap: '1rem', alignItems: 'center'}}>
+                            <Typography variant='h6' sx={{color: 'black'}}>Drinking Game</Typography>
+                            <Switch onChange={updateDrinkingGame} checked={drinkingGame} />
+                        </Box>
+                        <Box sx={{display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'center'}}>
+                            <Typography variant="h6" sx={{color: 'black'}}>Drinking Rules Ratios</Typography>
+                            <DrinkingRulesRatiosForm />
+                        </Box>
+                </div>)
+                }
+            </div>
         </Modal>
     </Box>)
 }

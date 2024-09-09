@@ -22,14 +22,16 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <div className="App-Container">
-        <Header />
-        <Card />
-        <Button sx={{display: 'flex', flexDirection: 'row', gap: '1rem', alignItems: 'center'}} onClick={handleClick}>Share Link <ContentCopyIcon /></Button>
-        <Snackbar open={chipOpen} onClose={() => setChipOpen(false)} autoHideDuration={2000} message="Copied to clipboard" />
+    <React.StrictMode>
+      <div className="App">
+        <div className="App-Container">
+          <Header />
+          <Card />
+          <Button sx={{display: 'flex', flexDirection: 'row', gap: '1rem', alignItems: 'center'}} onClick={handleClick}>Share Link <ContentCopyIcon /></Button>
+          <Snackbar open={chipOpen} onClose={() => setChipOpen(false)} autoHideDuration={2000} message="Copied to clipboard" />
+        </div>
       </div>
-    </div>
+    </React.StrictMode>
   );
 }
 
