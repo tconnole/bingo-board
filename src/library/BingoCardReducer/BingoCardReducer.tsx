@@ -51,6 +51,8 @@ export function GenerateDrinkRulesRatios() {
     ratioMap.set(DrinkRule.Drink2, 1);
     ratioMap.set(DrinkRule.Gift, 1);
     ratioMap.set(DrinkRule.WaterShot, 3);
+    ratioMap.set(DrinkRule.Truth, 0);
+    ratioMap.set(DrinkRule.Dare, 0);
     ratioMap.set(DrinkRule.None, 5);
 
     return ratioMap;

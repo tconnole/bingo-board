@@ -39,6 +39,8 @@ function Help() {
                     <HelpRow rule={DrinkRule.Gift} desc='Gift a Drink'/>
                     <HelpRow odd={true} rule={DrinkRule.Boys} desc='Boys Drink'/>
                     <HelpRow rule={DrinkRule.Girls} desc='Girls Drink'/>
+                    <HelpRow odd={true} rule={DrinkRule.Truth} desc='Tell a Truth' />
+                    <HelpRow rule={DrinkRule.Dare} desc="Complete a Dare" />
                 </CardContent>
             </Card>
         </Modal>

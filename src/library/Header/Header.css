@@ -32,12 +32,43 @@
     border-top-left-radius: 0;
 }
 
+.header {
+    display: flex;
+    flexDirection: row;
+    gap: 1rem;
+    alignItems: center;
+    flexWrap: wrap;
+}
+
+.header-text {
+    text-align: center;
+}
+
+.header-buttons {
+    display: flex;
+    flexDirection: row;
+    gap: 1rem;
+    alignItems: center;
+}
+
 @media only screen and (max-width: 650px) {
     .edit-form-container {
         width: unset;
         top: 1rem;
-        bottom: 1rem;
         left: 1rem;
         right: 1rem;
+    }
+
+    .edit-form-text {
+        flex-grow: 1;
+        height: 100%;
+    }
+
+    .header {
+        flex-direction: column;
+    }
+
+    .header-text {
+        width: 100%;
     }
 }

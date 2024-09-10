@@ -10,7 +10,9 @@ export enum DrinkRule {
     None,
     Boys,
     Girls,
-    Chug
+    Chug,
+    Truth,
+    Dare,
 }
 
 export function DrinkRuleIcon(rule: DrinkRule) {
@@ -37,6 +39,10 @@ export function DrinkRuleIcon(rule: DrinkRule) {
             return '👧'
         case DrinkRule.Chug:
             return '🫗'
+        case DrinkRule.Dare:
+            return '🫵'
+        case DrinkRule.Truth:
+            return '👄'
         default:
             return (<></>);
         
@@ -63,6 +69,10 @@ export function DrinkRuleColor(rule: DrinkRule): string {
             return '#ff6efd'
         case DrinkRule.Chug:
             return '#ff1900'
+        case DrinkRule.Truth:
+            return '#03fc88'
+        case DrinkRule.Dare:
+            return '#ca03fc'
         default:
             return '#20fc03';
     }
@@ -99,6 +109,10 @@ export function DrinkRuleText(rule: DrinkRule) {
             return 'Girls Drink'
         case DrinkRule.Chug:
             return 'Finish Drink'
+        case DrinkRule.Dare:
+            return 'Do a Dare'
+        case DrinkRule.Truth:
+            return 'Answer a Truth'
         default:
             return '';
     }

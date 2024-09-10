@@ -8,6 +8,7 @@ import Help from "./Help";
 import './Help.css';
 import './Header.css';
 import DrinkingRulesRatiosForm from "./DrinkingRulesRatiosForm";
+import CloseIcon from '@mui/icons-material/Close';
 
 function Header() {
     const bingoCard = useContext(BingoCardContext);
@@ -57,16 +58,18 @@ function Header() {
     }
 
     return (
-    <Box sx={{display: 'flex', flexDirection: 'row', gap: '1rem', alignItems: 'center'}}>
-        <Typography variant="h4">{title}</Typography>
+    <Box className="header">
+        <Typography variant="h4" className="header-text">{title}</Typography>
+        <Box className="header-buttons">
         <IconButton aria-label="edit" onClick={() => setOpen(true)}><EditIcon sx={{fontSize: '2rem', color: 'white'}} /></IconButton>
         <GenerateBingoCard />
         <Help />
         <Modal open={open} onClose={handleClose}>
             <div className="edit-form-container">
-                <div>
+                <div style={{position: 'relative'}}>
                     <button onClick={() => setTab('Settings')} onChange={() => setTab('Settings')} className="edit-form-tab" style={{backgroundColor: tab === 'Settings' ? 'white' : '', color: tab === 'Settings' ? 'black' : ''}}><Typography variant='h5'>Settings</Typography></button>
                     <button onClick={() => setTab('Drinking')} onChange={() => setTab('Drinking')} className="edit-form-tab" style={{backgroundColor: tab === 'Drinking' ? 'white' : '', color: tab === 'Drinking' ? 'black' : ''}}><Typography variant='h5'>Drinking</Typography></button>
+                    <IconButton sx={{ position: 'absolute', right: '0', top: '0', color: 'white'}} onClick={() => setOpen(false)}><CloseIcon /></IconButton>
                 </div>
                 { tab === 'Settings' ?
                 (<div className="edit-form">
@@ -79,7 +82,7 @@ function Header() {
                             <Button onClick={() => updateSize(3)} variant={size === 3 ? 'contained' : 'outlined'}>3x3</Button>
                             <Button onClick={() => updateSize(5)} variant={size === 5 ? 'contained' : 'outlined'}>5x5</Button>
                         </ButtonGroup>
-                        <TextField style={{width: '100%'}} multiline label='Words' rows={10} variant="outlined" onChange={(event) => updateWords(event.target.value)} value={words}></TextField>
+                        <TextField className="edit-form-text" style={{width: '100%'}} multiline label='Words' rows={15} variant="outlined" onChange={(event) => updateWords(event.target.value)} value={words}></TextField>
                 </div>) :
                 (<div className="edit-form">
                         <Box sx={{display: 'flex', flexDirection: 'row', gap: '1rem', alignItems: 'center'}}>
@@ -94,6 +97,7 @@ function Header() {
                 }
             </div>
         </Modal>
+        </Box>
     </Box>)
 }
 
