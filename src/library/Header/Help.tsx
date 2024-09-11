@@ -29,7 +29,7 @@ function Help() {
                     <IconButton onClick={handleClose}>
                         <CloseIcon />
                     </IconButton>} />
-                <CardContent sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                <CardContent sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', flexGrow: 1, overflow: 'auto'}}>
                     <HelpRow rule={DrinkRule.Drink} desc='Take a Drink'/>
                     <HelpRow odd={true} rule={DrinkRule.Drink2} desc='Take two Drinks'/>
                     <HelpRow rule={DrinkRule.Chug} desc='Finish your drink'/>
